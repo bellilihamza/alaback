@@ -1,0 +1,73 @@
+{
+  "kind": "collectionType",
+  "collectionName": "applications",
+  "info": {
+    "singularName": "application",
+    "pluralName": "applications",
+    "displayName": "Application",
+    "description": "Application store entries"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "downloadUrl": {
+      "type": "string",
+      "required": true
+    },
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "rating": {
+      "type": "decimal",
+      "min": 0,
+      "max": 5,
+      "default": 0
+    },
+    "downloads": {
+      "type": "string"
+    },
+    "fullDescription": {
+      "type": "richtext"
+    },
+    "screenshots": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "version": {
+      "type": "string",
+      "default": "1.0.0"
+    },
+    "fileSize": {
+      "type": "string"
+    },
+    "systemRequirements": {
+      "type": "text"
+    },
+    "lastUpdated": {
+      "type": "datetime"
+    },
+    "features": {
+      "type": "json"
+    },
+    "category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::category.category"
+    }
+  }
+}
