@@ -139,18 +139,16 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b">
-        <div className="container mx-auto px-4 py-4">
+      <header className="bg-white shadow-sm border-b sticky top-0 z-50">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg"></div>
-              <h1 className="text-2xl font-bold text-gray-900">{t('appStore')}</h1>
+            <div className="flex items-center space-x-2 sm:space-x-3">
+              <div className="w-6 h-6 sm:w-8 sm:h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex-shrink-0"></div>
+              <h1 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 truncate">{t('TAKE CARE')}</h1>
             </div>
-            <div className="flex items-center space-x-4">
-              <nav className="hidden md:flex items-center space-x-6">
-                <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors">{t('home')}</a>
-                <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors">Catégories</a>
-                <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors">À propos</a>
+            <div className="flex items-center space-x-2 sm:space-x-4">
+              <nav className="hidden lg:flex items-center space-x-6">
+
               </nav>
               <LanguageSelector />
             </div>
@@ -158,22 +156,22 @@ const Index = () => {
         </div>
       </header>
 
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         {/* Search Bar */}
-        <div className="mb-8">
-          <div className="relative max-w-md mx-auto">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+        <div className="mb-6 sm:mb-8">
+          <div className="relative max-w-sm sm:max-w-md lg:max-w-lg mx-auto">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 sm:w-5 sm:h-5" />
             <Input
               type="text"
               placeholder={t('search')}
               value={searchTerm}
               onChange={(e) => handleSearchChange(e.target.value)}
-              className="pl-10 pr-10 py-3 text-lg"
+              className="pl-10 pr-10 py-2.5 sm:py-3 text-base sm:text-lg w-full"
             />
             {searchTerm && (
               <button
                 onClick={() => handleSearchChange('')}
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors p-1"
                 aria-label="Effacer la recherche"
               >
                 <X className="w-4 h-4" />
@@ -183,34 +181,36 @@ const Index = () => {
         </div>
 
         {/* Categories */}
-        <div className="mb-8">
-          <h2 className="text-xl font-semibold mb-4 text-gray-800">Catégories</h2>
-          <div className="flex flex-wrap gap-3">
-            <Button
-              variant={selectedCategory === "all" ? "default" : "outline"}
-              onClick={() => handleCategoryChange("all")}
-              className="flex items-center space-x-2"
-            >
-              <span>{t('allCategories')}</span>
-            </Button>
-            {displayCategories.map((category) => {
-              const Icon = typeof category.icon === 'string'
-                ? iconMap[category.icon] || Settings
-                : category.icon || Settings;
-              const categoryId = category.id.toString();
+        <div className="mb-6 sm:mb-8">
+          <h2 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4 text-gray-800 px-2 sm:px-0">Catégories</h2>
+          <div className="overflow-x-auto pb-2">
+            <div className="flex gap-2 sm:gap-3 min-w-max px-2 sm:px-0">
+              <Button
+                variant={selectedCategory === "all" ? "default" : "outline"}
+                onClick={() => handleCategoryChange("all")}
+                className="flex items-center space-x-2 whitespace-nowrap text-sm sm:text-base px-3 sm:px-4 py-2 sm:py-2.5"
+              >
+                <span>{t('allCategories')}</span>
+              </Button>
+              {displayCategories.map((category) => {
+                const Icon = typeof category.icon === 'string'
+                  ? iconMap[category.icon] || Settings
+                  : category.icon || Settings;
+                const categoryId = category.id.toString();
 
-              return (
-                <Button
-                  key={category.id}
-                  variant={selectedCategory === categoryId ? "default" : "outline"}
-                  onClick={() => handleCategoryChange(categoryId)}
-                  className="flex items-center space-x-2"
-                >
-                  <Icon className="w-4 h-4" />
-                  <span>{category.name}</span>
-                </Button>
-              );
-            })}
+                return (
+                  <Button
+                    key={category.id}
+                    variant={selectedCategory === categoryId ? "default" : "outline"}
+                    onClick={() => handleCategoryChange(categoryId)}
+                    className="flex items-center space-x-1 sm:space-x-2 whitespace-nowrap text-sm sm:text-base px-3 sm:px-4 py-2 sm:py-2.5"
+                  >
+                    <Icon className="w-3 h-3 sm:w-4 sm:h-4" />
+                    <span className="hidden xs:inline">{category.name}</span>
+                  </Button>
+                );
+              })}
+            </div>
           </div>
         </div>
 
@@ -258,26 +258,26 @@ const Index = () => {
               )}
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
               {applications.map((app) => (
-              <Card key={app.id} className="hover:shadow-lg transition-shadow duration-300 bg-white cursor-pointer">
+              <Card key={app.id} className="hover:shadow-lg transition-all duration-300 bg-white cursor-pointer hover:scale-[1.02]">
                 <Link to={`/app/${app.documentId}`} className="block">
-                  <CardHeader className="pb-3">
-                    <div className="flex items-start space-x-4">
+                  <CardHeader className="pb-3 p-4 sm:p-6">
+                    <div className="flex items-start space-x-3 sm:space-x-4">
                       <img
                         src={app.logo}
                         alt={app.name}
-                        className="w-16 h-16 rounded-xl object-cover shadow-md"
+                        className="w-12 h-12 sm:w-16 sm:h-16 rounded-xl object-cover shadow-md flex-shrink-0"
                         onError={(e) => {
                           const target = e.target as HTMLImageElement;
                           target.src = '/default-app-logo.svg';
                         }}
                       />
                       <div className="flex-1 min-w-0">
-                        <CardTitle className="text-lg font-semibold text-gray-900 truncate hover:text-blue-600 transition-colors">
+                        <CardTitle className="text-base sm:text-lg font-semibold text-gray-900 truncate hover:text-blue-600 transition-colors">
                           {app.name}
                         </CardTitle>
-                        <CardDescription className="text-sm text-gray-600 mt-1">
+                        <CardDescription className="text-xs sm:text-sm text-gray-600 mt-1 line-clamp-2">
                           {app.description}
                         </CardDescription>
                       </div>
@@ -301,15 +301,15 @@ const Index = () => {
                     </div>
                   </CardContent>
                 </Link>
-                <CardContent className="pt-0">
+                <CardContent className="pt-0 p-4 sm:p-6">
                   <Button
-                    className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                    className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-sm sm:text-base py-2 sm:py-2.5"
                     onClick={(e) => {
                       e.preventDefault();
                       handleDownload(app);
                     }}
                   >
-                    <Download className="w-4 h-4 mr-2" />
+                    <Download className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
                     {t('download')}
                   </Button>
                 </CardContent>
@@ -320,7 +320,7 @@ const Index = () => {
 
           {/* Pagination */}
           {pagination.pageCount > 1 && (
-            <div className="mt-8">
+            <div className="mt-6 sm:mt-8 px-2 sm:px-0">
               <AppPagination
                 pagination={pagination}
                 onPageChange={handlePageChange}
@@ -330,8 +330,8 @@ const Index = () => {
         </div>
 
         {/* Footer */}
-        <footer className="text-center py-8 text-gray-600">
-          <p>&copy; 2024 AppStore. Découvrez les meilleures applications.</p>
+        <footer className="text-center py-6 sm:py-8 text-gray-600 px-4 sm:px-6 lg:px-8">
+          <p className="text-sm sm:text-base">&copy; 2024 AppStore. Découvrez les meilleures applications.</p>
         </footer>
       </div>
     </div>
